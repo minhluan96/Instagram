@@ -1,0 +1,26 @@
+# Set docker-compose version
+version: '2'
+
+services:
+  postgres:
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ../database:/var/lib/postgresql/data
+    image: postgres:9.6.9
+
+  web:
+    container_name: web
+    build: .
+    ports:
+      - "3000:3000"
+    command: sh -c "bundle install; bundle exec rails s -b '0.0.0.0'"
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+# Environment variables that allow my app to find other services
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_HOST: postgres

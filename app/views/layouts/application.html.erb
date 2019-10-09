@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Instagram</title>
+  <%= csrf_meta_tags %>
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+<!--Navigation Bar-->
+<nav class="navbar navbar-light bg-light d-flex">
+  <div class="container">
+    <div class="logo">
+      <a class="navbar-brand" href="#">
+        <%= link_to fa_icon("instagram", text: "Instagram", class: "mr-2"), root_path %>
+      </a>
+    </div>
+    <div class="m-auto">
+      <%= form_with url: search_path, method: :get, local: true, class: 'form-inline search-form' do |form| %>
+        <%= form.text_field :query, value: params[:query], class: 'form-control mr-sm-2', placeholder: '#search' %>
+      <% end %>
+    </div>
+    <div class="user-section">
+
+      <a><%= fa_icon "compass", class: "px-2" %></a>
+      <a><%= fa_icon "heart", class: "px-2" %></a>
+      <% if user_signed_in? %>
+        <%= link_to fa_icon("user", class: "px-2"), user_path(current_user) %>
+      <% else %>
+        <%= link_to fa_icon("sign-in", class: "px-2"), new_user_session_path %>
+      <% end %>
+    </div>
+  </div>
+</nav>
+
+<!--Main content-->
+<main class="container" style="min-height: 500px;">
+  <%= yield %>
+</main>
+
+<!--Footer-->
+<footer class="container footer">
+  <nav class="navbar d-flex">
+    <ul>
+      <li>ABOUT US
+      </li>
+      <li>SUPPORT</li>
+      <li>PRESS</li>
+      <li>API</li>
+      <li>JOBS</li>
+      <li>PRIVACY</li>
+      <li>TERMS</li>
+      <li>DIRECTORY</li>
+      <li>PROFILES</li>
+      <li>HASHTAGS</li>
+      <li>LANGUAGE</li>
+    </ul>
+    <p> © 2018 INSTAGRAM </p>
+  </nav>
+</footer>
+</body>
+</html>

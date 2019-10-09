@@ -1,0 +1,9 @@
+version: '2'
+services:
+  web: # This MUST match with the service's name of the container to sync file to in docker-compose.yml
+    volumes:
+      - instgram-app-code-sync:/web:nocopy
+
+volumes:
+  instgram-app-code-sync:
+    external: true
